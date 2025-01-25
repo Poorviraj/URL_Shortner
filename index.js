@@ -71,12 +71,20 @@ server.get('/:key', (req,res) => {
     let originalCount = DB.get(key).count;  // this is getting the count of the URL from the DB
     let originalTime = DB.get(key).createdAt;  // this is getting the time of the URL from the DB
     DB.get(key).count = originalCount + 1;     // this is incrementing the count of the URL by 1
-    DB.get(key).createdAt = new Date().getTime();  // this is updating the time of the URL
+    // DB.get(key).createdAt = new Date().getTime();  // this is updating the time of the URL
 
 
+    if((new Date().getTime() - originalTime) > 60000){
+        console.log('you are trying to access the URL after 1 minute');
+        return res.status(200).json({
+            success: false,
+            message: 'you are trying to access the URL after 1 minute'
+        })
+    }
 
-    if(originalCount >= 5  || new Date().getTime() - originalTime > 60000){  
-        console.log('Either you have reached your limit or you are trying to access the URL before 1 minute');
+
+    if(originalCount >= 5  ){   //
+        console.log('you have reached your limit');
         return res.status(200).json({
             success: false,
             message: 'you have reached your limit'
