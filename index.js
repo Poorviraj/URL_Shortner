@@ -49,7 +49,7 @@ server.post('/sort_url',(req,res)=> {
     res.status(200).json({
         success: true,
         message: 'URL received successfully',
-        shortUrl: `http://localhost:${PORT}/${key}`
+        shortUrl: `https://url-shortner-1-qb35.onrender.com/${key}`
     })
 })
 
