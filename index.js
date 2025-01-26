@@ -1,11 +1,12 @@
 const express = require('express');
-
+const cors = require('cors');
 
 const server = express();
 
 const PORT = 4000;
 
 server.use(express.json());
+server.use(cors());
 
 const DB = new Map();  // this is our temperory database and fu=the function is known as HASH MAP in javascript
 
@@ -43,7 +44,6 @@ server.post('/sort_url',(req,res)=> {
         createdAt: new Date().getTime()
     }
 
-
     DB.set(key,abc);  // this is setting the key and value in our DB
 
     res.status(200).json({
@@ -74,8 +74,8 @@ server.get('/:key', (req,res) => {
     // DB.get(key).createdAt = new Date().getTime();  // this is updating the time of the URL
 
 
-    if((new Date().getTime() - originalTime) > 60000){
-        console.log('you are trying to access the URL after 1 minute');
+    if((new Date().getTime() - originalTime) > 10*60*1000){
+        console.log('you are trying to access the URL after 10 minute');
         return res.status(200).json({
             success: false,
             message: 'you are trying to access the URL after 1 minute'
