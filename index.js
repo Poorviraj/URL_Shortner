@@ -83,7 +83,7 @@ server.get('/:key', (req,res) => {
     }
 
 
-    if(originalCount >= 5  ){   //
+    if(originalCount >= 15  ){   //
         console.log('you have reached your limit');
         return res.status(200).json({
             success: false,
